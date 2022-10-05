@@ -5,7 +5,7 @@ import speedtest
 
 @api_view(["GET"])
 def getSpeed(request):
-    test = speedtest.Speedtest()
+    test = speedtest.Speedtest(secure=1)
     down_speed = test.download()/1024/1024
     up_speed = test.upload()/1024/1024
     download = round(down_speed,2)
