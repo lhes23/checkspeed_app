@@ -1,26 +1,46 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React, { useState } from "react"
+import "./App.css"
+import axios from "axios"
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+const client = axios.create({
+  baseURL: "http://localhost:8000/"
+})
+
+interface ISpeed {
+  download: number
+  upload: number
 }
 
-export default App;
+function App() {
+  const [netSpeed, setNetSpeed] = useState<ISpeed>()
+  const [isLoading, setIsLoading] = useState<boolean>(false)
+
+  const runSpeedTestHandler = () => {
+    setIsLoading(true)
+    client
+      .get("api/checkspeed/")
+      .then((res) => {
+        setNetSpeed(res.data)
+        setIsLoading(false)
+      })
+      .catch((error) => console.log(error))
+  }
+  console.log(netSpeed)
+  console.log(isLoading)
+
+  return (
+    <div className="App">
+      <h1>Internet Speed Test</h1>
+      <button onClick={runSpeedTestHandler}>Run Speed Test</button>
+      {isLoading && <p>Loading...</p>}
+      {!isLoading && netSpeed && (
+        <>
+          <p>Download: {netSpeed?.download} mbps</p>
+          <p>Upload: {netSpeed?.upload} mbps</p>
+        </>
+      )}
+    </div>
+  )
+}
+
+export default App
