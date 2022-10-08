@@ -28,9 +28,9 @@ function App() {
 
   return (
     <div className="flex justify-center">
-      <div className="backdrop-blur-sm bg-white/30 w-2/3 my-30 py-20 rounded-xl">
+      <div className="backdrop-blur-sm bg-white/30 w-full md:w-2/3 my-30 py-20 rounded-xl">
         <div className="flex justify-center">
-          <h1 className="text-2xl md:text-4xl m-10 font-bold">
+          <h1 className="text-2xl md:text-4xl m-10 font-bold text-center">
             Internet Speed Test
           </h1>
         </div>
@@ -47,23 +47,27 @@ function App() {
           </motion.button>
         </div>
         {!isLoading && netSpeed && (
-          <div className="flex justify-evenly">
-            <ReactSpeedometer
-              value={netSpeed?.download}
-              maxValue={100}
-              startColor="red"
-              endColor="green"
-              currentValueText={`Download Speed : ${netSpeed?.download} MBPS`}
-              textColor="#fff"
-            />
-            <ReactSpeedometer
-              value={netSpeed?.upload}
-              maxValue={100}
-              startColor="red"
-              endColor="green"
-              currentValueText={`Upload Speed : ${netSpeed?.upload} MBPS`}
-              textColor="#fff"
-            />
+          <div className="md:flex md:justify-evenly item-center">
+            <div className="flex justify-center">
+              <ReactSpeedometer
+                value={netSpeed?.download}
+                maxValue={100}
+                startColor="red"
+                endColor="green"
+                currentValueText={`Download Speed : ${netSpeed?.download} MBPS`}
+                textColor="#fff"
+              />
+            </div>
+            <div className="flex justify-center">
+              <ReactSpeedometer
+                value={netSpeed?.upload}
+                maxValue={100}
+                startColor="red"
+                endColor="green"
+                currentValueText={`Upload Speed : ${netSpeed?.upload} MBPS`}
+                textColor="#fff"
+              />
+            </div>
           </div>
         )}
       </div>
