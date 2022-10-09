@@ -44,7 +44,7 @@ const DotTransition = {
   ease: "easeInOut"
 }
 
-export default function ThreeDotsWave() {
+const ThreeDotsWave = () => {
   return (
     <div
       style={{
@@ -80,3 +80,5 @@ export default function ThreeDotsWave() {
     </div>
   )
 }
+
+export default ThreeDotsWave
